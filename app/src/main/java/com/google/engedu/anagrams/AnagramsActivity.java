@@ -26,7 +26,7 @@ import java.util.ArrayList;
 
 public class AnagramsActivity extends AppCompatActivity {
 
-    public static final String START_MESSAGE = "Find as many words as possible that can be formed by adding one letter to <big>%s</big> (but that do not contain the substring %s).";
+    public static final String START_MESSAGE = "Find as many words as possible that can be formed by adding two letters to <big>%s</big> (but that do not contain the substring %s).";
     private AnagramDictionary dictionary;
     private String currentWord;
     private ArrayList<String> anagrams;
@@ -110,7 +110,7 @@ public class AnagramsActivity extends AppCompatActivity {
         TextView resultView = (TextView) findViewById(R.id.resultView);
         if (currentWord == null) {
             currentWord = dictionary.pickGoodStarterWord();
-            anagrams = dictionary.getAnagramsWithOneMoreLetter(currentWord);
+            anagrams = dictionary.getAnagramsWithTwoMoreLetter(currentWord);
             gameStatus.setText(Html.fromHtml(String.format(START_MESSAGE, currentWord.toUpperCase(), currentWord)));
             fab.setImageResource(android.R.drawable.ic_menu_help);
             fab.hide();
