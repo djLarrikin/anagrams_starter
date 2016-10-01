@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Random;
@@ -65,7 +66,7 @@ public class AnagramDictionary {
         return lettersToWord.get(sortLetters(targetWord));
     }
 
-    public ArrayList<String> getAnagramsWithOneMoreLetter(String word) {
+    /*public ArrayList<String> getAnagramsWithOneMoreLetter(String word) {
         ArrayList<String> result = new ArrayList<String>();
         ArrayList<String> anagrams;
         for (char alphabet = 'a'; alphabet <= 'z'; alphabet++) {
@@ -76,13 +77,29 @@ public class AnagramDictionary {
             }
         }
         return result;
+    }*/
+
+    public ArrayList<String> getAnagramsWithTwoMoreLetter(String word) {
+        ArrayList<String> result = new ArrayList<String>();
+        ArrayList<String> anagrams;
+        for (char alphabet = 'a'; alphabet <= 'z'; alphabet++) {
+            for (char alphabetj = alphabet; alphabetj <= 'z'; alphabetj++) {
+                String appendedWord = word + alphabet + alphabetj;
+                anagrams = getAnagrams(appendedWord);
+                if (anagrams != null && anagrams.size() > 0) {
+                    result.addAll(anagrams);
+                }
+            }
+        }
+        Collections.sort(result);
+        return result;
     }
 
     public String pickGoodStarterWord() {
         while (true) {
             ArrayList<String> limitedWordList = sizeToWord.get(wordLength);
             String testWord = limitedWordList.get(random.nextInt(limitedWordList.size()));
-            ArrayList<String> anagrams = getAnagramsWithOneMoreLetter(testWord);
+            ArrayList<String> anagrams = getAnagramsWithTwoMoreLetter(testWord);
             int numberOfAnagrams = anagrams.size();
 
             Log.d("anagrams", "testWord: " + testWord);
